@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func InitDB(envDb database.DriverSupabase) (*gorm.DB, error) {
+func InitSupabase(envDb database.DriverSupabase) (*gorm.DB, error) {
 	dsn := fmt.Sprintf("user=%s "+
 		"password=%s "+
 		"host=%s "+

@@ -1,6 +1,9 @@
 package domain
 
-import "gorm.io/gorm"
+import (
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
+)
 
 type FarmModel struct {
 	gorm.Model
@@ -29,4 +32,11 @@ type FarmUseCase interface {
 	Read(uint) (FarmModel, error)
 	Delete(uint) error
 	Update(*FarmModel, uint) error
+}
+
+type FarmHandler interface {
+	Register(*gin.Context)
+	Read(*gin.Context)
+	Update(*gin.Context)
+	Delete(*gin.Context)
 }

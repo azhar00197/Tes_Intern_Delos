@@ -13,7 +13,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	db, err := db_con.InitDB(envDb)
+	db, err := db_con.InitSupabase(envDb)
 	if err != nil {
 		panic(err)
 	}

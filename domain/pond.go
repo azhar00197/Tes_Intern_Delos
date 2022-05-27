@@ -18,7 +18,7 @@ type PondInput struct {
 
 type PondUseCase interface {
 	Create(*PondModel) error
-	Read(*PondModel) (*[]PondModel, error)
-	Update(*PondModel) error
-	Delete(*PondModel) error
+	Read(uint) (*[]PondModel, error)
+	Update(uint) error
+	Delete(uint) error
 }

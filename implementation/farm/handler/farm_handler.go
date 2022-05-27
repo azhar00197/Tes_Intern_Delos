@@ -1,24 +1,26 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/adityarizkyramadhan/tes_intern_delos/domain"
 	"github.com/adityarizkyramadhan/tes_intern_delos/middleware"
 	"github.com/adityarizkyramadhan/tes_intern_delos/utils/response"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
-type handlerFarm struct {
+type FarmHandler struct {
 	FarmUseCase domain.FarmUseCase
+	FarmHandler domain.FarmHandler
 }
 
-func NewHandlerFarm(useCase domain.FarmUseCase) *handlerFarm {
-	return &handlerFarm{
+func NewHandlerFarm(useCase domain.FarmUseCase) *FarmHandler {
+	return &FarmHandler{
 		FarmUseCase: useCase,
 	}
 }
 
-func (h handlerFarm) Register(c *gin.Context) {
+func (h FarmHandler) Register(c *gin.Context) {
 	var input domain.FarmInput
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, response.ResponseWhenFail("Bind JSON fail", err))
@@ -47,7 +49,7 @@ func (h handlerFarm) Register(c *gin.Context) {
 	}))
 }
 
-func (h handlerFarm) Update(c *gin.Context) {
+func (h FarmHandler) Update(c *gin.Context) {
 	var input domain.FarmInput
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, response.ResponseWhenFail("Bind JSON fail", err))
@@ -69,7 +71,7 @@ func (h handlerFarm) Update(c *gin.Context) {
 	c.JSON(http.StatusOK, response.ResponseWhenSuccess("Update data success", nil))
 }
 
-func (h handlerFarm) Delete(c *gin.Context) {
+func (h FarmHandler) Delete(c *gin.Context) {
 	idUser := c.MustGet("login").(uint)
 	if err := h.FarmUseCase.Delete(idUser); err != nil {
 		c.JSON(http.StatusInternalServerError, response.ResponseWhenFail("Delete data fail", nil))
@@ -78,7 +80,7 @@ func (h handlerFarm) Delete(c *gin.Context) {
 	c.JSON(http.StatusOK, response.ResponseWhenSuccess("Delete data success", nil))
 }
 
-func (h handlerFarm) Read(c *gin.Context) {
+func (h FarmHandler) Read(c *gin.Context) {
 	idUser := c.MustGet("login").(uint)
 	data, err := h.FarmUseCase.Read(idUser)
 	if err != nil {
