@@ -1,6 +1,9 @@
 package domain
 
-import "gorm.io/gorm"
+import (
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
+)
 
 type PondModel struct {
 	gorm.Model
@@ -18,7 +21,16 @@ type PondInput struct {
 
 type PondUseCase interface {
 	Create(*PondModel) error
-	Read(uint) (*[]PondModel, error)
-	Update(uint) error
+	Read(uint) ([]PondModel, error)
+	Update(uint, *PondModel) error
 	Delete(uint) error
+	ReadById(uint) (PondModel, error)
+}
+
+type PondHandler interface {
+	Create(*gin.Context)
+	Read(*gin.Context)
+	Update(*gin.Context)
+	Delete(*gin.Context)
+	ReadById(*gin.Context)
 }

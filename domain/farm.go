@@ -35,7 +35,7 @@ type FarmUseCase interface {
 }
 
 type FarmHandler interface {
-	Register(*gin.Context)
+	Create(*gin.Context)
 	Read(*gin.Context)
 	Update(*gin.Context)
 	Delete(*gin.Context)

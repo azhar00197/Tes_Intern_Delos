@@ -7,7 +7,7 @@ import (
 )
 
 func RouteFarm(farm *gin.RouterGroup, farmHandler *handler.FarmHandler) {
-	farm.POST("/", farmHandler.FarmHandler.Register)
+	farm.POST("/", farmHandler.FarmHandler.Create)
 	farm.PUT("/", middleware.ValidateJWToken(), farmHandler.FarmHandler.Update)
 	farm.DELETE("/", middleware.ValidateJWToken(), farmHandler.FarmHandler.Delete)
 	farm.GET("/", middleware.ValidateJWToken(), farmHandler.FarmHandler.Read)
